@@ -47,4 +47,3 @@ starter_words <- c('orate', 'incus','dumpy') # only need 3 since they contain al
 wordle_word_list_matrix <- wordle_word_list %>% separate(word,
                                                          into = c(paste0('pos_', 0:5)),
                                                          sep = '', remove = F) %>% select(-pos_0)
-

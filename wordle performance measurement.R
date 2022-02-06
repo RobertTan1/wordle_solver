@@ -1,6 +1,6 @@
 # average guess rate per 1000 games
 
-performance_history <- data.frame(game_num = 1:1000, guesses_needed = 0, target_word = NA)
+performance_history <- data.frame(game_num = 1:1000, guesses_needed = 0)
 
 for (i in 1:nrow(performance_history)) {
   performance_history$guesses_needed[i] <- as.integer(run_wordle_simulation())

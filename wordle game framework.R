@@ -4,7 +4,7 @@
 # target_word <- 'allll'
 # DEBUGGING
 
-run_wordle_simulation <- function(verbose = F, word_set = wordle_word_list_matrix) {
+run_wordle_simulation <- function(verbose = F) {
   target_word <-
     # wordle_word_list$word[sample.int(nrow(wordle_word_list), 1)]
     as.character(wordle_word_list[,.SD[sample(.N, 1)]])
@@ -24,7 +24,7 @@ run_wordle_simulation <- function(verbose = F, word_set = wordle_word_list_matri
   # guess_word <- ''
   guess_matrix_letter <- matrix(nrow = n_tries, ncol = 5)
   guess_matrix_index <- matrix(nrow = n_tries, ncol = 5)
-  candidate_set <- word_set
+  candidate_set <- wordle_word_list_matrix
   
   # The Game
   
@@ -54,7 +54,7 @@ run_wordle_simulation <- function(verbose = F, word_set = wordle_word_list_matri
     # }
     else {
       guess_word <-
-        word_giver(guess_matrix_letter, guess_matrix_index, current_row, past_guesses, verbose)
+        word_giver(guess_matrix_letter, guess_matrix_index, current_row, past_guesses, verbose, candidate_set)
       # guess_word <- word_giver_ai(guess_matrix_letter, guess_matrix_index, current_row)
       
       guess_matrix_letter[current_row,] <-

@@ -1,4 +1,4 @@
-word_giver <- function(guess_matrix_letter, guess_matrix_index, current_row, past_guesses, verbose) {
+word_giver <- function(guess_matrix_letter, guess_matrix_index, current_row, past_guesses, verbose, candidate_set = candidate_set) {
   
   green_hits <- data.table(letter = character(0), position = integer(0))
   for (row_check in 1:(current_row-1)) {
@@ -42,13 +42,13 @@ word_giver <- function(guess_matrix_letter, guess_matrix_index, current_row, pas
   } else if (nrow(yellow_hits) == 0 & nrow(green_hits) == 0 & current_row == 3) {
     return(starter_words[3])
   }
-  
+
   # filter greens first
   if (nrow(green_hits) > 0) {
     for (i in 1:nrow(green_hits)) {
       temp_var <- paste0('pos_', green_hits$position[i])
       candidate_set <-
-        candidate_set[which(candidate_set[temp_var] == green_hits$letter[i]),]
+        candidate_set[which(candidate_set[,temp_var, with = F] == green_hits$letter[i]),]
     }
   }
   
@@ -70,7 +70,8 @@ word_giver <- function(guess_matrix_letter, guess_matrix_index, current_row, pas
       candidate_set <-
         candidate_set[which(str_detect(string = candidate_set$word, pattern = yellow_hits$letter[i])),]
       temp_var <- paste0('pos_', yellow_hits$position[i])
-      candidate_set <- candidate_set[which(candidate_set[temp_var] != yellow_hits$letter[i]),]
+      candidate_set <-
+        candidate_set[which(candidate_set[, temp_var, with = F] != yellow_hits$letter[i]), ]
     }
   }
   
