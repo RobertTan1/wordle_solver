@@ -1,13 +1,8 @@
 # setup game --------------------------------------------------------------
 
-# DEBUGGING
-# target_word <- 'allll'
-# DEBUGGING
-
 run_wordle_simulation <- function(verbose = F) {
-  target_word <-
-    # wordle_word_list$word[sample.int(nrow(wordle_word_list), 1)]
-    as.character(wordle_word_list[,.SD[sample(.N, 1)]])
+  target_word <- 'hatch'
+    # as.character(wordle_word_list[,.SD[sample(.N, 1)]])
   
   target_word_split <- strsplit(target_word, '')[[1]]
   
@@ -21,7 +16,6 @@ run_wordle_simulation <- function(verbose = F) {
   }
   
   n_tries = 9
-  # guess_word <- ''
   guess_matrix_letter <- matrix(nrow = n_tries, ncol = 5)
   guess_matrix_index <- matrix(nrow = n_tries, ncol = 5)
   candidate_set <- wordle_word_list_matrix
@@ -29,10 +23,6 @@ run_wordle_simulation <- function(verbose = F) {
   # The Game
   
   for (current_row in 1:(n_tries + 1)) {
-    # DEBUG
-    # guess_word <- 'allll'
-    # guess_matrix_letter[1,] <- strsplit(guess_word,'')[[1]]
-    # DEBUG
     
     # Suggest Word
     if (current_row == 1) {
@@ -47,11 +37,6 @@ run_wordle_simulation <- function(verbose = F) {
       guess_matrix_letter[2,] <- strsplit(guess_word, '')[[1]]
       interstial_letter_count_keeper$current_row_count <- 0
     }
-    # else if (current_row == 3) {
-    #   guess_word = starter_words[3]
-    #   guess_matrix_letter[3,] <- strsplit(guess_word, '')[[1]]
-    #   interstial_letter_count_keeper$current_row_count <- 0
-    # }
     else {
       guess_word <-
         word_giver(guess_matrix_letter, guess_matrix_index, current_row, past_guesses, verbose, candidate_set)
@@ -70,11 +55,11 @@ run_wordle_simulation <- function(verbose = F) {
     }
     
     if (guess_word == target_word) {
-      # result <- c(current_row, target_word)
-      return(current_row)
+      result <- list(current_row, target_word)
+      return(result)
     }
     
-    # Green detection
+    # Green and gray detection
     for (i in 1:5) {
       guess_matrix_index[current_row, i] <-
         ifelse(target_word_split[i] == guess_matrix_letter[current_row, i],
@@ -89,7 +74,6 @@ run_wordle_simulation <- function(verbose = F) {
     }
     
     # Yellow detection
-    
     for (i in 1:5) {
       guess_letter <- guess_matrix_letter[current_row, i]
       if (guess_matrix_index[current_row, i] == 'green') {
@@ -107,9 +91,5 @@ run_wordle_simulation <- function(verbose = F) {
         }
       }
     }
-    
-    # DEBUG
-    # guess_matrix_index
-    # DEBUG
   }
 }

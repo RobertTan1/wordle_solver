@@ -31,3 +31,23 @@ if(current_row == 3 & nrow(candidate_set) >5) {
     }
   }
 }
+
+
+# Manual helper
+
+guess_matrix_letter <- matrix(nrow = n_tries, ncol = 5)
+guess_matrix_index <- matrix(nrow = n_tries, ncol = 5)
+
+guess_matrix_letter[1,] <- strsplit('orate','')[[1]]
+guess_matrix_letter[2,] <- strsplit('incus','')[[1]]
+guess_matrix_letter[3,] <- strsplit('spill','')[[1]]
+
+guess_matrix_index[1,] <- c('grey', 'yellow', 'grey', 'grey', 'yellow')
+guess_matrix_index[2,] <- c('grey', 'grey', 'grey', 'yellow', 'grey')
+guess_matrix_index[3,] <- c('green', 'grey', 'green', 'green', 'green')
+
+word_giver(guess_matrix_letter,
+           guess_matrix_index,
+           current_row = 4,
+           past_guesses = c(''),
+           verbose = T)

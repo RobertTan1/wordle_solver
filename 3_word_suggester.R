@@ -33,10 +33,6 @@ word_giver <- function(guess_matrix_letter, guess_matrix_index, current_row, pas
   grey_hits %<>% filter(!(letter %in% yellow_hits$letter))
   grey_hits %<>% filter(!(letter %in% green_hits$letter))
   
-  # grey_hits %<>% filter(any(letter == yellow_hits$letter))
-  # grey_hits %<>% filter(any(letter == green_hits$letter))
-  
-  
   if (nrow(yellow_hits) == 0 & nrow(green_hits) == 0 & current_row == 2) {
     return(starter_words[2])
   } else if (nrow(yellow_hits) == 0 & nrow(green_hits) == 0 & current_row == 3) {
@@ -75,9 +71,6 @@ word_giver <- function(guess_matrix_letter, guess_matrix_index, current_row, pas
     }
   }
   
-  # print(nrow(candidate_set))
-  # print(paste('target word is', target_word, 'guessing', guess))
-  # print(guess_matrix_index)
   if(verbose) {
     print(candidate_set)
     print(guess_matrix_index)
@@ -92,7 +85,6 @@ word_giver <- function(guess_matrix_letter, guess_matrix_index, current_row, pas
       prune_letter_count$count[i] <-
         sum(str_count(candidate_set$word, prune_letter_count$letter[i]),
             na.rm = T)
-      # prune_letter_count %<>% drop_na()
     }
 
     top_letters <- prune_letter_count %>% filter(count > 0) %>% arrange(-count)
@@ -114,7 +106,3 @@ word_giver <- function(guess_matrix_letter, guess_matrix_index, current_row, pas
   guess <- candidate_set$word[sample.int(nrow(candidate_set), 1)]
   return(guess)
 }
-
-# DEBUG
-# word_giver(guess_matrix_letter, guess_matrix_index, 1)
-# DEBUG

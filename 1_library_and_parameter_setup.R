@@ -2,10 +2,8 @@
 
 library(tidyverse)
 library(magrittr)
-library(profvis)
 library(data.table)
 library(microbenchmark)
-# library(ReinforcementLearning)
 
 # Full list
 # wordle_word_list <-
@@ -15,13 +13,16 @@ library(microbenchmark)
 #     progress = show_progress()
 #   ) %>% as.data.table()
 
-# Human friendly list
+# Words used in actual Wordle game
 wordle_word_list <-
-  t(read_delim(
-    'https://gist.githubusercontent.com/RobertTan1/f913cf44623e95ee48f7e083cd75e9ea/raw/f0653c72b0a2bab03e837c26772e012371d36c17/human_friendly_wordle_words.csv',
-    col_names = F,
-    progress = show_progress(), delim = ', '
-  ) %>% head()) %>% as.data.table()
+  t(
+    read_delim(
+      'https://gist.githubusercontent.com/RobertTan1/f913cf44623e95ee48f7e083cd75e9ea/raw/f0653c72b0a2bab03e837c26772e012371d36c17/human_friendly_wordle_words.csv',
+      col_names = F,
+      progress = show_progress(),
+      delim = ', '
+    ) %>% head()
+  ) %>% as.data.table()
 
 names(wordle_word_list) <- 'word'
 
@@ -37,13 +38,15 @@ for (i in 1:nrow(letter_count)) {
 letter_count %>% arrange(-count) %>% View()
 
 # manually construct starter word vector
-wordle_word_list %>% 
+wordle_word_list %>%
   filter(str_detect(word, '^(?=.*y)(?=.*c)(?=.*p)(?=.*k)(?=.*).*$')) %>% head()
 
 # starter_words <- c('aloes', 'rutin','pocky') # only need 3 since they contain all vowels
-starter_words <- c('orate', 'incus','dumpy') # only need 3 since they contain all vowels
+starter_words <-
+  c('orate', 'incus', 'dumpy') # only need 3 since they contain all vowels
 
 # construct matrix of wordle words for matching purposes
 wordle_word_list_matrix <- wordle_word_list %>% separate(word,
                                                          into = c(paste0('pos_', 0:5)),
-                                                         sep = '', remove = F) %>% select(-pos_0)
+                                                         sep = '',
+                                                         remove = F) %>% select(-pos_0)
