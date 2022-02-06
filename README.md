@@ -17,7 +17,3 @@ Use run_wordle_simulation(verbose = T) in order to see guess progress.
 Average guesses to succeed: 3.90
 
 Win Rate: 99.3% (ability to guess in 6 words or less)
-
-
-
-Based on improvement rate, I could get it down to 3.5 with more time
