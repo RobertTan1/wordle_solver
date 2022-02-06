@@ -1,4 +1,4 @@
-Repo contains:
+**Repo contains:**
 
 1. game setup
 2. game framework
@@ -12,7 +12,7 @@ Run each sequentially in order to run run_wordle_simulation().
 Use run_wordle_simulation(verbose = T) in order to see guess progress.
 
 
-Current performance: 
+**Current performance: **
 
 Average guesses to succeed: 3.90
 
