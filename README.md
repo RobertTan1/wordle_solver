@@ -5,7 +5,9 @@ Repo contains:
 3. a basic heuristic based algorithm to suggest word
 4. basic performance measurement
 
-Run each sequentially in order to run game.
+Run each sequentially in order to run run_wordle_simulation().
+
+Use run_wordle_simulation(verbose = T) in order to see guess progress.
 
 Current performance: 
 Average guesses to succeed: 3.90
