@@ -20,7 +20,7 @@ run_wordle_simulation <- function(verbose = F) {
       sum(str_count(target_word, letter_count$letter[i]))
   }
   
-  n_tries = 20
+  n_tries = 9
   # guess_word <- ''
   guess_matrix_letter <- matrix(nrow = n_tries, ncol = 5)
   guess_matrix_index <- matrix(nrow = n_tries, ncol = 5)
